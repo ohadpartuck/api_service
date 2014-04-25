@@ -6,7 +6,7 @@ var express             = require('express'),
     bodyParser          = require('body-parser');
 
 module.exports = function (app) {
-// view engine setup - todo remove, this is a json api service only
+    // view engine setup - todo remove, this is a json api service only
     app.set('views', path.join(__dirname, 'views'));
     app.set('view engine', 'jade');
 
@@ -17,7 +17,7 @@ module.exports = function (app) {
     app.use(cookieParser());
     app.use(express.static(path.join(__dirname, 'public')));
 
-/// catch 404 and forwarding to error handler
+    /// catch 404 and forwarding to error handler
     app.use(function(req, res, next) {
         var err = new Error('Not Found');
         err.status = 404;
