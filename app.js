@@ -11,10 +11,12 @@ var app = require('express')(),
     server = require('http').createServer(app),
     io = require('socket.io').listen(server);
 
-server.listen(1999);
+server.listen(9000);
 
-var routes  = require('./routes/index'),
-    users       = require('./routes/users');
+//TODO - separate by apps
+require('./routes/index')(app, '');
+require('./routes/sanger_api')(app, '/sanger');
+require('./routes/sockets_test')(app, '/sockets_test', io);
 
 // view engine setup - todo remove, this is a json api service only
 app.set('views', path.join(__dirname, 'views'));
@@ -26,21 +28,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-var router = express.Router();
-router.get('/b', function(req, res) {
-    res.sendfile(GLOBAL.ROOT + '/views/index1.html');
-});
-
-router.get('/:id', function(req, res) {
-    io.clients[req.params.id].emit('msg','booga');
-});
-
-
-
-app.use('/', routes);
-app.use('/users', users);
-app.use('/aaa', router);
 
 
 /// catch 404 and forwarding to error handler
@@ -60,10 +47,6 @@ app.use(function(err, req, res, next) {
 });
 
 app.set('port', process.env.PORT || 1999);
-
-//var server = app.listen(app.get('port'), function() {
-//    console.log('Express server listening on port ' + server.address().port);
-//});
 
 io.clients = {};
 io.handleSocketMsg = function(data){
@@ -88,7 +71,8 @@ io.sockets.on('connection', function (socket) {
         socket.emit('msg','ACK');
     });
 });
-//module.exports = app;
+
+module.exports = app;
 
 
 //io.handleSocketMsg = function(data){
