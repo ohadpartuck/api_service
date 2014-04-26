@@ -7,8 +7,8 @@ var express         = require('express'),
 
 server.listen(9000);
 
-require(GLOBAL.ROOT + '/init/app_setup')(app);
-require(GLOBAL.ROOT + '/init/routes_setup')(app, io);
-require(GLOBAL.ROOT + '/init/sockets/sockets_setup')(io);
+require('./init/app_setup')(app);
+require('./init/routes_setup')(app, io);
+require('./init/sockets/sockets_setup')(io);
 
 module.exports = app;

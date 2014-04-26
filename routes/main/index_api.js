@@ -10,6 +10,5 @@ module.exports = function (app, namespace) {
     });
 
     app.use(namespace + '/', router);
-    return router;
 };
 

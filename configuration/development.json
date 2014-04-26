@@ -1,0 +1,29 @@
+{
+    "globals" : {
+    },
+    "mongodb":{
+        "hosts": []
+    },
+    "services":{
+        "api": {                // this is this service, written just to notate port
+                                //api service will get requests from .com and mobile
+                                // clients and return json results.
+            "url" : "http://localhost:9003"
+        },
+        "users": {              //login + sign up
+            "url" : "http://localhost:9001"
+        },
+        "products": {           //app's products
+            "url" : "http://localhost:9002"
+        },
+        "elastic_searcher": {   // a client to query the elastic search server and return results
+            "url" : "http://localhost:9003"
+        },
+        "social": {             // save, index and get social data(facebook/linkedin/google+) about users
+            "url" : "http://localhost:9004"
+        },
+        "financial":{           // money related service
+            "url" : "http://localhost:9005"
+        }
+    }
+}

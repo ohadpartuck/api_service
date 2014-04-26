@@ -7,8 +7,10 @@ module.exports = function (app, namespace) {
         res.json({'body': 123});
     });
 
+    router = require('./users_api')(router, '/users');
+    router = require('./sockets_api')(router, '/sockets');
+
     app.use(namespace + '/v1', router);
-    return router;
 };
 
 
