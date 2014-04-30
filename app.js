@@ -5,10 +5,11 @@ var express         = require('express'),
     server          = require('http').createServer(app),
     io              = require('socket.io').listen(server);
 
-server.listen(9000);
-
-require('./init/app_setup')(app);
+//require('./init/app_setup')(app);
 require('./init/routes_setup')(app, io);
 require('./init/sockets/sockets_setup')(io);
+
+app.listen(9000, function(){ console.log("live and kicking on port 9000")});
+
 
 module.exports = app;
