@@ -8,6 +8,7 @@ module.exports = function (app, namespace) {
     });
 
     router = require('./users_api')(router, '/users');
+    router = require('./products_api')(router, '/products');
     router = require('./callbacks_api')(router, '/callbacks');
 
     app.use(namespace + '/v1', router);
