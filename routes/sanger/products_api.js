@@ -1,6 +1,9 @@
+var products                     = require('../../lib/sanger/products');
+
+
 module.exports = function (router, namespace) {
-    router.get(namespace + '/ab', function(req, res) {
-        res.json({'users_products': 123});
+    router.get(namespace, function(req, res) {
+        products.get(req, res);
     });
 
     return router;

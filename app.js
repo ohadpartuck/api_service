@@ -1,11 +1,12 @@
-GLOBAL.ROOT = __dirname;
+ROOT = __dirname;
+ENV  = (process.env.NODE_ENV || 'DEVELOPMENT').toLowerCase();
 
 var express         = require('express'),
     app             = express(),
     server          = require('http').createServer(app),
     io              = require('socket.io').listen(server);
 
-//require('./init/app_setup')(app);
+require('./init/app_setup')(app);
 require('./init/routes_setup')(app, io);
 require('./init/sockets/sockets_setup')(io);
 
