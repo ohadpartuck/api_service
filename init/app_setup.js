@@ -32,4 +32,6 @@ module.exports = function (app) {
 //            error: error
 //        });
 //    });
+
+    GLOBAL.SANGER_CONSTATNTS    = global_constants['sanger']['sanger_constants'];
 };

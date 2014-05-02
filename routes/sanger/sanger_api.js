@@ -4,7 +4,7 @@ var router      = express.Router();
 
 module.exports = function (app, namespace) {
     router.get('/', function(req, res) {
-        res.json({'body': 123});
+        res.json({'main_sanger': true});
     });
 
     router = require('./users_api')(router, '/users');
