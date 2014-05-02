@@ -1,7 +1,8 @@
 var global_constants         = require('global_constants'),
-    extend                   = require('util')._extend;
+    extend                   = require('util')._extend,
+    queryString             = require('querystring');
 
-module.exports = function (app) {
+    module.exports = function (app) {
 
     MAIN_CONFIG          = require('../configuration/main/' + ENV + '.json')    ;
 
@@ -11,6 +12,7 @@ module.exports = function (app) {
     defineGlobalFunctions();
 };
 
+//TODO - add localization
 
 function require_settings(namespace){
     var defaults                = require('../configuration/' + namespace + '/defaults.json'),
@@ -19,7 +21,7 @@ function require_settings(namespace){
 }
 
 function defineGlobalFunctions(){
-    //TODO - all these function - extract to a helper module
+    //TODO - all these function - extract to a helper node module
     isProduction                = function() { return ENV == 'production' };
     useStub                     = function(use_stub_setting) { return use_stub_setting && !isProduction() };
     GenericOnGetError           = function(params){
@@ -28,5 +30,27 @@ function defineGlobalFunctions(){
     };
     genericNewObjectCallback    = function(params){
         console.log('genericNewObjectCallback got this ' + JSON.stringify(params));
+    };
+    objectToUrlString = function(queryObj, legalProductsKeys){
+        var sanitizedObj = {};
+
+        for (var key in queryObj){
+            if (legalKey(key, legalProductsKeys)){
+                sanitizedObj[key] = queryObj[key];
+            }
+        }
+        return queryString.stringify(sanitizedObj);
+    };
+    legalKey = function (key, legalProductsKeys){
+        return legalProductsKeys.hasOwnProperty(key)
+    };
+
+    sanitizedUrlIsOk = function (sanitizedUrl){
+        //To prevent get all query in production
+        return !(sanitizedUrl == '' && isProduction());
+    };
+
+    sanitizedNewProductParamsIsOk = function(sanitizedNewProductParams){
+
     };
 }
