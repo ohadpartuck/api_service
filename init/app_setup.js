@@ -1,6 +1,7 @@
 var global_constants         = require('global_constants'),
     extend                   = require('util')._extend,
-    queryString             = require('querystring');
+    bodyParser               = require('body-parser');
+    queryString              = require('querystring');
 
     module.exports = function (app) {
 
@@ -8,6 +9,8 @@ var global_constants         = require('global_constants'),
 
     SANGER_CONFIG        = require_settings('sanger');
     SANGER_CONSTATNTS    = global_constants['sanger']['sanger_constants'];
+
+    app.use(bodyParser()); //to get params in req.body
 
     defineGlobalFunctions();
 };
@@ -31,7 +34,7 @@ function defineGlobalFunctions(){
     genericNewObjectCallback    = function(params){
         console.log('genericNewObjectCallback got this ' + JSON.stringify(params));
     };
-    objectToUrlString = function(queryObj, legalProductsKeys){
+    sanitizeObject = function(queryObj, legalProductsKeys){
         var sanitizedObj = {};
 
         for (var key in queryObj){
@@ -39,18 +42,29 @@ function defineGlobalFunctions(){
                 sanitizedObj[key] = queryObj[key];
             }
         }
+
+        return sanitizedObj;
+    };
+    objectToUrlString = function(queryObj, legalProductsKeys){
+        sanitizedObj =  sanitizeObject(queryObj, legalProductsKeys);
+
         return queryString.stringify(sanitizedObj);
     };
     legalKey = function (key, legalProductsKeys){
         return legalProductsKeys.hasOwnProperty(key)
     };
-
     sanitizedUrlIsOk = function (sanitizedUrl){
         //To prevent get all query in production
         return !(sanitizedUrl == '' && isProduction());
     };
 
-    sanitizedNewProductParamsIsOk = function(sanitizedNewProductParams){
-
+    sanitizedNewProductParamsIsOk = function(sanitizedNewProductParams, mustFields){
+        var paramsLegal = true;
+        for (var key in mustFields){
+            if (!sanitizedNewProductParams.hasOwnProperty(key)){
+                paramsLegal = false
+            }
+        }
+        return paramsLegal;
     };
 }
