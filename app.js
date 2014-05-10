@@ -7,6 +7,7 @@ var express         = require('express'),
     io              = require('socket.io').listen(server);
 
 require('./init/app_setup')(app);
+require('./init/global_methods/global_methods');
 require('./init/routes_setup')(app, io);
 require('./init/sockets/sockets_setup')(io);
 
