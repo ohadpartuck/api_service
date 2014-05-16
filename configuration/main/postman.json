@@ -2,32 +2,32 @@
     "development":{
         "services": {
             "api": {
-                "url" : "http://localhost:9000"
+                "url" : "http://localhost:9000/"
             },
             "users": {
-                "url" : "http://localhost:9001"
+                "url" : "http://localhost:9001/"
             },
             "products": {
-                "url" : "http://localhost:9002"
+                "url" : "http://localhost:9002/"
             },
             "elastic_searcher": {
-                "url" : "http://localhost:9003"
+                "url" : "http://localhost:9003/"
             },
             "social": {
-                "url" : "http://localhost:9004"
+                "url" : "http://localhost:9004/"
             },
             "financial":{
-                "url" : "http://localhost:9005"
+                "url" : "http://localhost:9005/"
             },
             "sanger_app":{
-                "url" : "http://localhost:9006"
+                "url" : "http://localhost:9006/"
             }
         }
     },
     "production":{
         "services": {
             "users": {
-                "url" : "http://localhost:9001"
+                "url" : "http://localhost:9001/"
             }
         }
     }

@@ -1,6 +1,7 @@
 {
     "globals" : {
-    }
+    },
+    "stub_products_service" : true
 
 }
 
