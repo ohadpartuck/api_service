@@ -1,0 +1,6 @@
+{
+    "development":{
+        "stub_products_service" : true,
+        "stub_users_service" : true
+    }
+}
