@@ -6,7 +6,10 @@ var global_constants         = require('global_constants'),
 
 module.exports = function (app) {
 
-    MAIN_CONFIG          = require('../configuration/main/' + ENV + '.json');
+    var config           = require('../configuration/main/' + ENV);
+    var globals          = require('../configuration/main/globals')[ENV];
+
+    MAIN_CONFIG          = extend(config, globals);
     POSTMAN_CONFIG       = require('../configuration/main/postman')[ENV];
 
     SANGER_CONFIG        = require_settings('sanger');
@@ -23,7 +26,7 @@ module.exports = function (app) {
 //TODO - add localization
 
 function require_settings(namespace){
-    var defaults                = require('../configuration/' + namespace + '/defaults.json'),
-        by_env                  = require('../configuration/' + namespace + '/' + ENV + '.json');
+    var defaults                = require('../configuration/' + namespace + '/defaults'),
+        by_env                  = require('../configuration/' + namespace + '/' + ENV);
     return extend(defaults, by_env);
 }
