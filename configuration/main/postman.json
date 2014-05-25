@@ -21,6 +21,9 @@
             },
             "sanger_app":{
                 "url" : "http://localhost:9006/"
+            },
+            "neo4j_service":{
+                "url" : "http://localhost:9007/"
             }
         }
     },
