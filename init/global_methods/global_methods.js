@@ -1,6 +1,6 @@
 
-var queryString     = require('querystring');
-Cookies         = require('cookies');
+var queryString         = require('querystring');
+var Cookies             = require('cookies');
 
 
 //TODO - all these function - extract to a helper node module
@@ -62,6 +62,7 @@ loggedIn = function(req){
 };
 
 GenericOnLoginSuccess = function(params){
+
 
     var res             = params['settings']['res'],
         req             = params['settings']['req'],
