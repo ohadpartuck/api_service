@@ -1,5 +1,7 @@
 var stubUsersService                = useStub(MAIN_CONFIG['stub_users_service']);
 var postman                         = require('rest_postman')(POSTMAN_CONFIG);
+var queryString                     = require('querystring');
+
 
 logIn = function(prefix, req, res, next){
     if (stubUsersService){
@@ -33,8 +35,24 @@ signUp = function(prefix, req, res, next){
     }
 };
 
+socialSignUp = function(prefix, providerName, params, passToCallbacks){
+    if (stubUsersService){
+        var params = {settings:passToCallbacks,
+            responseBody: stubbedUserResponse()};
+        GenericOnLoginSuccess(params)
+    }else{
+        postman.get('users',  prefix + 'users/auth/' + providerName + '/callback?' + queryString.stringify(params),
+            null,
+            GenericOnGetError,
+            GenericOnLoginSuccess,
+            {passToCallbacks:passToCallbacks});
+    }
+};
+
 stubbedUserResponse = function(){
     return {user: {_id: "123", email: "stubbed_user@gmail.com", password: "encrypted_pass",
-            profile: {picture: 'https://gravatar.com/avatar/?s=60&d=retro'}}};
+        profile: {picture: 'https://gravatar.com/avatar/?s=60&d=retro'}}};
 };
+
+
 
