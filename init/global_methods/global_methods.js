@@ -1,4 +1,3 @@
-
 var queryString         = require('querystring');
 var Cookies             = require('cookies');
 

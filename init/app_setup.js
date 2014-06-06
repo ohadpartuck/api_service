@@ -2,7 +2,8 @@ var global_constants         = require('global_constants'),
     extend                   = require('util')._extend,
     bodyParser               = require('body-parser'),
     cookieParser             = require('cookie-parser'),
-    session                  = require('express-session');
+    session                  = require('express-session'),
+    i18n                     = require('i18n');
 
 module.exports = function (app) {
 
@@ -20,6 +21,18 @@ module.exports = function (app) {
     app.use(cookieParser());
     //TODO - if I don't want the session to expire every time I restart, I have to use redis connect/ mongo connect
     app.use(session({secret: '1234567890QWERTY'}));
+
+    i18n.configure({
+        locales:['en', 'fr', 'he'],
+        defaultLocale: 'he',
+        cookie: 'locale',
+        directory: ROOT + '/configuration/locales',
+        indent: "\t"
+    });
+
+    i18n.setLocale('he');
+
+    console.log(i18n.__('Hello'));
 
 };
 
